@@ -1,0 +1,96 @@
+
+color_red = '\033[91m'
+color_reset = '\033[0m'
+
+
+def Manual():
+
+    print("""
+
+    TITAN Password Manager Manual
+    =============================
+    AUTHOR: Kartik Iyer
+
+    1. Introduction
+    ----------------
+    TITAN Password Manager is a powerful and secure tool designed to help you effectively manage and store your passwords. This detailed manual provides step-by-step instructions and explanations on how to use the TITAN Password Manager to its full potential.
+
+    This product completely belongs to the TASK-1.
+
+    2. Installation
+    ----------------
+    2.1. Requirements
+    - Python 3.5 or higher
+    - cryptography library
+
+    2.2. Installation Steps
+    - Download/clone the TITAN Password Manager source code from the github account.
+    - Extract the downloaded archive to a directory of your choice.
+    - Open a terminal or command prompt and navigate to the directory where the source code is saved.
+    - Run the following command: `python3 tpm.py`
+    - The TITAN Password Manager will be launched.
+    - You can also use these flags: --action login, --action register to simplify your tasks.
+
+    2.3. Operating System Support
+    - Windows
+    - Linux
+
+    3. Getting Started
+    -------------------
+    3.1. Registration
+    - Upon launching the TITAN Password Manager for the first time, you will be prompted to register by creating a new master password.
+    - Enter a unique username that will be used to identify your account.
+    - Choose a strong master password that will be used to encrypt and protect your stored passwords.
+    - Confirm the master password to ensure accuracy.
+    - Your registration will be completed, and your master credentials will be securely stored.
+
+    3.2. Login
+    - After registration, you can log in to your TITAN account using your username and master password.
+    - Enter your username.
+    - Enter your master password.
+    - If the credentials are correct, you will be logged in successfully and gain access to the main menu.
+
+    4. Main Menu
+    --------------
+    4.1. Store Passwords
+    - In the main menu, choose the option to store passwords.
+    - Enter the name or label of the website, application, or service for which you want to store the password.
+    - Enter the password you want to store.
+    - The password will be securely encrypted using strong cryptographic algorithms and stored in the TITAN database.
+
+    4.2. Retrieve Passwords
+    - In the main menu, choose the option to retrieve passwords.
+    - You will see a list of websites, applications, or services for which you have stored passwords.
+    - Select the entry corresponding to the password you want to retrieve.
+    - The encrypted password will be decrypted using your master password, and the clear text password will be displayed on the screen.
+
+    4.3. Generate Strong Passwords
+    - TITAN Password Manager offers a built-in password generator to help you create strong and unique passwords.
+    - In the main menu, choose the option to generate passwords.
+    - Specify the desired length and complexity of the password.
+    - TITAN will generate a random password for you, which you can then copy and use for your accounts.
+
+    4.4. Update or Delete Password Entries
+    - In the main menu, choose the option to manage password entries.
+    - Select the entry you wish to update or delete from the list of stored passwords.
+    - Choose the appropriate action (update or delete) and follow the prompts.
+
+    5. Security Tips
+    -----------------
+    5.1. Master Password
+    - Choose a strong and unique master password that is not easily guessable.
+    - Avoid using common passwords or personal information.
+    - Use a combination of uppercase and lowercase letters, numbers, and special characters.
+    - Regularly update your master password to enhance security.
+
+    5.2. Regular Backups
+    - Regularly back up your TITAN Password Manager database to ensure your passwords are not lost in case of system failures or data corruption.
+    - Store the backups in a secure location, such as an encrypted external drive or cloud storage.
+
+    6. Troubleshooting
+    -------------------
+    If you encounter any issues or have questions while using TITAN Password Manager, you can:
+    - Visit the official TITAN Password Manager website for FAQs and support articles.
+    - Contact our support team through the provided channels on the official website.
+    - Consult the user community forums for additional assistance and tips.
+    """)

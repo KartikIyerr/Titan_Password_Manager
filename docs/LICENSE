@@ -1,0 +1,37 @@
+GNU PUBLIC LICENSE
+Version 3, 22 June 2023
+
+Copyright(c) 2023 - TaskOne - TITAN PASSWORD MANAGER
+
+Preamble:
+
+The TITAN Password Manager is a command line tool designed to securely manage passwords on Linux and Windows operating systems. The Tool provides users with password encryption, storage, retrieval, and generation functionalities.
+
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION, AND MODIFICATION:
+
+1. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+   a. Redistributions of source code must retain the above copyright notice, this list of conditions, and the following disclaimer.
+   
+   b. Redistributions in binary form must reproduce the above copyright notice, this list of conditions, and the following disclaimer in the documentation and/or other materials provided with the distribution.
+   
+   c. Neither the name of the Tool nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+2. The Tool is provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Tool or the use or other dealings in the Tool.
+
+3. Any modifications made to the Tool must be clearly marked as such, and must not be misrepresented as the original Tool.
+
+4. The Tool includes cryptographic software. The country in which you currently reside may have restrictions on the import, possession, and use of encryption software. It is your responsibility to ensure that your use of the Tool complies with applicable laws and regulations.
+
+END OF TERMS AND CONDITIONS
+
+How to Apply the GNU Public License:
+
+To apply the GNU Public License to the Tool, include the following notice with the Tool or its derived works:
+
+  TITAN Password Manager
+  This program is free software: you can redistribute it and/or modify it under the terms of the GNU Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Public License for more details.
+
+For further information about the GNU Public License, please visit: https://www.gnu.org/licenses/gpl-3.0.html
