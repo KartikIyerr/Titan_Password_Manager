@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# _._encoding: utf-8_._
+
+
 #########################################################################################
 #                                                                                       #
 #   Titan Password Manager - Secure and Easy-to-Use Password Management Solution        #
