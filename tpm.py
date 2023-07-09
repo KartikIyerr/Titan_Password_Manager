@@ -28,6 +28,8 @@ import random           # for generating random passwords
 import string           # for generating a string of ascii characters and numbers
 import logging          # for maintaining logs
 import pyperclip        # for copying the passwords to the clipboard
+import requests         # for handling requests
+import hashlib          # for converting plaintext into hash format
 
 sys.dont_write_bytecode = True
 
@@ -67,7 +69,6 @@ try:
     from titan.core.validation import validate_password
     from titan.core.EncryptionDecryption import EncryptionDecryption
     from titan.core.ConnectionClass import DBConnectionProcedures
-    from titan.core.pwne_check import check_pwned
     from titan.core.secure_notes import sec_notes
     from titan.triggers.checkUser import checkUser
     from titan.triggers.Manual import Manual
@@ -171,6 +172,49 @@ try:
                     f"{Y}  [!] Are you a new user? Maybe you should register with us!{CR}")
                 time.sleep(1)
                 self.MainMenu()
+
+        def check_pwned(self, username):
+            introBanner()
+            print(f"Welcome to the Titan's password leak detection section.\n ")
+            password = getpass.getpass(
+                f"{G}[*]{CR} Enter the password to check if it was breached: ")
+            hash_pwd = hashlib.sha1(password.encode()).hexdigest().upper()
+
+            suffix = hash_pwd[5:]
+            prefix = hash_pwd[:5]
+
+            try:
+                url = f"https://api.pwnedpasswords.com/range/{prefix}"
+                # Added a User-Agent header to avoid 403 Forbidden response
+                headers = {'User-Agent': 'Mozilla/5.0'}
+                response = requests.get(url, headers=headers)
+                if response.status_code == 200:
+                    # Account has been breached
+                    hashes = response.text.split('\n')
+                    # print(hashes)
+
+                    for hash in hashes:
+                        if hash.startswith(suffix):
+                            count = int(hash.split(':')[1])
+                            if count > 0 or count < 100:
+                                print(
+                                    f"{R}[!]{CR} The password '{password}' has been breached {R}{count}{CR} times.\n")
+                            else:
+                                print(
+                                    f"{G}[!]{R} The password '{password}' has not been breached yet.\n")
+                                return
+
+                choice1 = input(
+                    f"{G}[-]{CR} Check for more? [y/n]: ")
+                if choice1 == 'y' or choice1 == 'Y':
+                    self.check_pwned(username)
+                elif choice1 == 'n' or choice1 == 'N':
+                    self.afterLoginVerificationMenu(username)
+                else:
+                    print(f"{R}[!] Enter a valid choice. {CR}")
+
+            except requests.ConnectionError:
+                return False
 
         def registrationMenu(self):
             try:
@@ -592,12 +636,12 @@ try:
                     elif choice == "8":
                         sec_notes(login_username)
                     elif choice == "9":
-                        status = check_pwned(login_username)
-                        if not status:
+                        status = self.check_pwned(login_username)
+                        if status == False:
                             print(
                                 f"{R}[!] You are not connected to the internet. Exiting.\n")
-                        time.sleep(1)
-                        self.afterLoginVerificationMenu(login_username)
+                        # time.sleep(1)
+                        # self.afterLoginVerificationMenu(login_username)
                     elif choice == "10":
                         self.settingMenu(login_username)
                     else:
