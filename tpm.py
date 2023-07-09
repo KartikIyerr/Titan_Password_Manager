@@ -8,6 +8,7 @@
 #                                                                                       #
 #   Author: Kartik Iyer                                                                 #        
 #   License: This product is licensed UN the terms of the GNU Public License.           #
+#   Github: www.github.com/KartikIyerr/Titan_Password_Manager                           #
 #                                                                                       #
 #   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNSTAND ITS FUNCTIONALITY.        #
 #            MAKING CHANGES WITHOUT PROPER AND ADEQUATE KNOWLEDGE CAN COMPROMISE        #
