@@ -31,6 +31,10 @@ import pyperclip        # for copying the passwords to the clipboard
 
 sys.dont_write_bytecode = True
 
+####################
+# GLOBAL VARIABLES #
+####################
+
 # color codes
 R = '\033[91m'
 RB = '\033[1;91m'
@@ -43,8 +47,21 @@ BB = '\033[1;94m'
 UN = '\033[4m'
 CR = '\033[0m'
 
+titan_code_dir = os.getcwd()
+home_dir = os.path.expanduser("~")
+titan_home = "TitanPwdManager"
+config_folder = "TitanConfig"
+comp_dir = os.path.join(home_dir, titan_home)
+os.chdir(home_dir)
+os.makedirs(comp_dir, exist_ok=True)
+os.chdir(comp_dir)
+os.makedirs(config_folder, exist_ok=True)
 
-# importing core modules
+
+###############################
+# Importing dependent modules #
+###############################
+
 try:
     from titan.core.ascii_art import introBanner
     from titan.core.validation import validate_password
@@ -73,23 +90,10 @@ except NameError:
     pass
 
 
-# User's home
-titan_code_dir = os.getcwd()
+#############
+# MAIN CODE #
+#############
 
-home_dir = os.path.expanduser("~")
-titan_home = "TitanPwdManager"
-config_folder = "TitanConfig"
-comp_dir = os.path.join(home_dir, titan_home)
-os.chdir(home_dir)
-os.makedirs(comp_dir, exist_ok=True)
-os.chdir(comp_dir)
-os.makedirs(config_folder, exist_ok=True)
-
-# # checking the acceptance of user agreement
-# checkUser()
-
-
-# main code
 try:
     class PasswordManager(EncryptionDecryption, DBConnectionProcedures):
         def __init__(self):
