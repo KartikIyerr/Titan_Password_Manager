@@ -6,13 +6,13 @@
 #                                                                                       #
 #   COPYRIGHT (c) 2023 - All Rights Reserved                                            #
 #                                                                                       #
-#   Author: Kartik Iyer                                                                 #        
-#   License: This product is licensed UN the terms of the GNU Public License.           #
+#   Author: Kartik Iyer                                                                 #
+#   License: This product is licensed under the terms of the GNU Public License.        #
 #   Github: www.github.com/KartikIyerr/Titan_Password_Manager                           #
 #                                                                                       #
-#   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNSTAND ITS FUNCTIONALITY.        #
-#            MAKING CHANGES WITHOUT PROPER AND ADEQUATE KNOWLEDGE CAN COMPROMISE        #
-#            THE SECURITY AND FUNCTIONALITY OF THE PASSWORD MANAGER.                    #             
+#   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNDERSTAND ITS FUNCTIONALITY.     #
+#            MAKING CHANGES WITHOUT PROPER KNOWLEDGE CAN COMPROMISE                     #
+#            THE SECURITY AND FUNCTIONALITY OF THE PASSWORD MANAGER.                    #
 #                                                                                       #
 #########################################################################################
 
