@@ -6,12 +6,12 @@
 #                                                                                       #
 #   COPYRIGHT (c) 2023 - All Rights Reserved                                            #
 #                                                                                       #
-#   Author: Kartik Iyer                                                                 #        #
-#   License: This product is licensed UN the terms of the GNU Public License.        #
+#   Author: Kartik Iyer                                                                 #        
+#   License: This product is licensed UN the terms of the GNU Public License.           #
 #                                                                                       #
-#   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNSTAND ITS FUNCTIONALITY.     #
+#   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNSTAND ITS FUNCTIONALITY.        #
 #            MAKING CHANGES WITHOUT PROPER AND ADEQUATE KNOWLEDGE CAN COMPROMISE        #
-#            THE SECURITY AND FUNCTIONALITY OF THE PASSWORD MANAGER.                    #             #
+#            THE SECURITY AND FUNCTIONALITY OF THE PASSWORD MANAGER.                    #             
 #                                                                                       #
 #########################################################################################
 
