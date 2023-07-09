@@ -7,40 +7,40 @@
 #   COPYRIGHT (c) 2023 - All Rights Reserved                                            #
 #                                                                                       #
 #   Author: Kartik Iyer                                                                 #        #
-#   License: This product is licensed under the terms of the GNU Public License.        #
+#   License: This product is licensed UN the terms of the GNU Public License.        #
 #                                                                                       #
-#   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNDERSTAND ITS FUNCTIONALITY.     #
-#            MAKING CHANGES WITHOUT PROPER KNOWLEDGE CAN COMPROMISE THE SECURITY        #
-#            AND FUNCTIONALITY OF THE PASSWORD MANAGER.                                 #
+#   WARNING: DO NOT MODIFY THIS CODE UNLESS YOU FULLY UNSTAND ITS FUNCTIONALITY.     #
+#            MAKING CHANGES WITHOUT PROPER AND ADEQUATE KNOWLEDGE CAN COMPROMISE        #
+#            THE SECURITY AND FUNCTIONALITY OF THE PASSWORD MANAGER.                    #             #
 #                                                                                       #
 #########################################################################################
 
 
-import sys
-import os
-import getpass
-import sqlite3
-import time
-import base64
-import argparse
-import random
-import string
-import logging
-import pyperclip
+import sys              # for checking platform and arguments
+import os               # for the file manipulations
+import getpass          # for getting user passwords
+import sqlite3          # for database functionalities
+import time             # for measuring time
+import base64           # for the base64 encoding/decoding functions
+import argparse         # for parsing arguments
+import random           # for generating random passwords
+import string           # for generating a string of ascii characters and numbers
+import logging          # for maintaining logs
+import pyperclip        # for copying the passwords to the clipboard
 
 sys.dont_write_bytecode = True
 
 # color codes
-color_red = '\033[91m'
-color_red_bold = '\033[1;91m'
-color_green = '\033[92m'
-color_green_bold = '\033[1;92m'
-color_yellow = '\033[93m'
-color_yellow_bold = '\033[1;93m'
-color_blue = '\033[94m'
-color_blue_bold = '\033[1;94m'
-under = '\033[4m'
-color_reset = '\033[0m'
+R = '\033[91m'
+RB = '\033[1;91m'
+G = '\033[92m'
+GB = '\033[1;92m'
+Y = '\033[93m'
+YB = '\033[1;93m'
+B = '\033[94m'
+BB = '\033[1;94m'
+UN = '\033[4m'
+CR = '\033[0m'
 
 
 # importing core modules
@@ -57,7 +57,7 @@ try:
     from titan.triggers.dailyTips import tips
 
 except ImportError as i:
-    print(f"{color_red}[!]{color_reset} Error importing the packages. {i}")
+    print(f"{R}[!]{CR} Error importing the packages. {i}")
     sys.exit(1)
 
 try:
@@ -99,25 +99,23 @@ try:
         def platform_check(self):
             # checking the platform
             if (sys.platform == 'win32'):
-                tip = tips()
-                print(f"{color_yellow}Tip: {tip}{color_reset}\n")
                 print(
-                    f"{color_red_bold}[-]{color_reset} Operating system detected: Windows \n")
+                    f"{RB}[-]{CR} Operating system detected: Windows \n")
                 logging.info("Operating System detected: Windows.")
             elif (sys.platform == 'linux'):
                 print(
-                    f"{color_red_bold}[-]{color_reset} Operating system detected: Linux ")
+                    f"{RB}[-]{CR} Operating system detected: Linux ")
 
                 # checking for root
                 if os.geteuid() != 0:
                     print(
                         f"\n  TITAN Password Manager - By Kartik Iyer")
                     print(
-                        f"  Not running as {color_red}root{color_reset}. Exiting the TITAN Password Manager.\n")
+                        f"  Not running as {R}root{CR}. Exiting the TITAN Password Manager.\n")
                     sys.exit()
             else:
                 print(
-                    f"  {color_red_bold}[!]{color_reset} This tool does not support your device.")
+                    f"  {RB}[!]{CR} This tool does not support your device.")
 
         def checkMasterCredentials(self, username, password):
             os.chdir(home_dir)
@@ -143,10 +141,10 @@ try:
 
                         else:
                             print(
-                                f"{color_yellow}  [!] Are you a new user? Maybe you should register with us!{color_reset}")
+                                f"{Y}  [!] Are you a new user? Maybe you should register with us!{CR}")
                             while True:
                                 user_choice = input(
-                                    f"{color_blue_bold}  [-]{color_reset} Can I take you to the Registration process? (y/n): ")
+                                    f"{BB}  [-]{CR} Can I take you to the Registration process? (y/n): ")
                                 if user_choice == "y" or user_choice == "Y":
 
                                     self.registrationMenu()
@@ -155,17 +153,17 @@ try:
                                     self.MainMenu()
                                 else:
                                     raise ValueError(
-                                        f"{color_red}[!]{color_reset} Enter a proper value")
+                                        f"{R}[!]{CR} Enter a proper value")
                     else:
                         print(
-                            f"{color_red}[!] Problem connecting with the database.")
+                            f"{R}[!] Problem connecting with the database.")
                 else:
                     print(
-                        f"{color_red}  [!]{color_reset} No database initialized. Maybe you have not yet registered with us...")
+                        f"{R}  [!]{CR} No database initialized. Maybe you have not yet registered with us...")
                     sys.exit(0)
             except Exception as e:
                 print(
-                    f"{color_yellow}  [!] Are you a new user? Maybe you should register with us!{color_reset}")
+                    f"{Y}  [!] Are you a new user? Maybe you should register with us!{CR}")
                 time.sleep(1)
                 self.MainMenu()
 
@@ -175,26 +173,26 @@ try:
                 logging.info("User selected registration menu.")
                 print(f"Welcome to the Registration section of Titan Password manager. Create your new vault\nby providing us the required information and be sure to keep the master password SAFE.\n")
                 print(
-                    f"{color_red}Warning:{color_reset} Master password is non-recoverable. Please keep it in a safe place.\n")
+                    f"{R}Warning:{CR} Master password is non-recoverable. Please keep it in a safe place.\n")
                 print(
-                    f"{color_green_bold}[+] Create Master Credentials{color_reset}")
+                    f"{GB}[+] Create Master Credentials{CR}")
 
                 while True:
                     new_username = input(
-                        f"{color_green_bold}[-]{color_reset} Enter a unique username: ")
+                        f"{GB}[-]{CR} Enter a unique username: ")
                     logging.info(f"User entered username as: {new_username}.")
                     status = self.checkMasterUser(new_username)
 
                     if not status:
                         new_password = getpass.getpass(
-                            f"{color_green_bold}[-]{color_reset} Enter a new master password: ")
+                            f"{GB}[-]{CR} Enter a new master password: ")
                         logging.info(f"User entered the password.")
                         confirm_password = getpass.getpass(
-                            f"{color_green_bold}[-]{color_reset} Confirm master password: ")
+                            f"{GB}[-]{CR} Confirm master password: ")
 
                         if new_password != confirm_password:
                             print(
-                                f"{color_red}[!] Passwords do not match. Please try again.{color_reset}")
+                                f"{R}[!] Passwords do not match. Please try again.{CR}")
                         else:
                             validationStatusOfPwd = validate_password(
                                 new_password)
@@ -204,16 +202,16 @@ try:
                                 self.sqlConnectionMaster(
                                     new_username, encryptedPassword)
                                 print(
-                                    f"{color_green}[*]{color_reset} Your account is created!")
+                                    f"{G}[*]{CR} Your account is created!")
                                 print(
-                                    f"{color_blue}[*]{color_reset} Performing the necessary configurations!")
+                                    f"{B}[*]{CR} Performing the necessary configurations!")
                                 time.sleep(1.5)
                                 print(
-                                    f"{color_blue}[*]{color_reset} Done..\n")
+                                    f"{B}[*]{CR} Done..\n")
 
                                 while True:
                                     after_reg_input = input(
-                                        f"{color_blue}[-]{color_reset} Do you want to login into your TITAN Account? [y/n]: ")
+                                        f"{B}[-]{CR} Do you want to login into your TITAN Account? [y/n]: ")
 
                                     if (after_reg_input == "y" or after_reg_input == "Y"):
                                         self.loginMenu()
@@ -221,10 +219,10 @@ try:
                                         self.MainMenu()
                                     else:
                                         print(
-                                            f"{color_red_bold}[!]{color_reset} Please enter a proper value")
+                                            f"{RB}[!]{CR} Please enter a proper value")
                     else:
                         print(
-                            f"{color_yellow}[!] This username already exists. Try to be more creative.{color_reset}")
+                            f"{Y}[!] This username already exists. Try to be more creative.{CR}")
             except KeyboardInterrupt:
                 self.MainMenu()
 
@@ -244,18 +242,18 @@ try:
                 print(
                     f"Welcome to the Password Storage Menu. This menu allows you to store your valuable passwords in a secure \ndatabase to be fetched later.\n")
                 print(
-                    f"{color_blue}[*] Store your passwords with us.{color_reset}\n")
+                    f"{B}[*] Store your passwords with us.{CR}\n")
                 website = input(
-                    f"  {color_blue}[-]{color_reset} Enter the name of the website (just the name): ")
+                    f"  {B}[-]{CR} Enter the name of the website (just the name): ")
                 pwdToStore = getpass.getpass(
-                    f"  {color_blue}[-]{color_reset} Enter the password to store: ")
+                    f"  {B}[-]{CR} Enter the password to store: ")
                 encryptedPwd = self.encPwdForPwdStorage(pwdToStore)
                 status = self.sqlConnectionToStorePwd(
                     login_username, website, encryptedPwd)
 
                 if status:
                     print(
-                        f"  {color_green_bold}[*]{color_reset} Your password is successfully stored.")
+                        f"  {GB}[*]{CR} Your password is successfully stored.")
                     time.sleep(1)
                     self.afterLoginVerificationMenu(login_username)
 
@@ -271,12 +269,12 @@ try:
                 storedWebSites = self.retrieveWebsiteFromDB(username)
                 if storedWebSites is not None:
                     for i, item in enumerate(storedWebSites, start=1):
-                        print(f"  {color_blue}{i}.{color_reset} {item[0]}  ")
+                        print(f"  {B}{i}.{CR} {item[0]}  ")
                     print()
-                    print(f" {color_blue}99.{color_reset} Go back a menu.\n")
+                    print(f" {B}99.{CR} Go back a menu.\n")
                     while True:
                         web_choice = int(input(
-                            f"{color_blue}[-]{color_reset} Enter your choice: "))
+                            f"{B}[-]{CR} Enter your choice: "))
 
                         if web_choice == 99:
                             self.afterLoginVerificationMenu(self.username)
@@ -287,13 +285,13 @@ try:
                                 self.username, selected_website)
                             if password is not None:
                                 print(
-                                    f"{color_green}=>{color_reset} Password:{color_green} {password}{color_reset}")
+                                    f"{G}=>{CR} Password:{G} {password}{CR}")
                         else:
                             print(
-                                f"{color_red}[!] Invalid input. Select a valid one.{color_reset}")
+                                f"{R}[!] Invalid input. Select a valid one.{CR}")
                 else:
                     print(
-                        f"{color_yellow}  No passwords were found. Start by storing a new password from the \"Store Password Menu\"{color_reset}\n")
+                        f"{Y}  No passwords were found. Start by storing a new password from the \"Store Password Menu\"{CR}\n")
 
             except KeyboardInterrupt:
                 self.afterLoginVerificationMenu(username)
@@ -307,15 +305,15 @@ try:
                 storedWebSites = self.retrieveWebsiteFromDB(self.username)
                 if storedWebSites is None:
                     print(
-                        f"{color_yellow}  No passwords were found. Start by storing a new password from the \"Store Password Menu\"{color_reset}\n")
+                        f"{Y}  No passwords were found. Start by storing a new password from the \"Store Password Menu\"{CR}\n")
                 else:
                     for i, item in enumerate(storedWebSites, start=1):
-                        print(f"  {color_blue}{i}.{color_reset} {item[0]}  ")
+                        print(f"  {B}{i}.{CR} {item[0]}  ")
                     print()
-                    print(f" {color_blue}99.{color_reset} Go back a menu.\n")
+                    print(f" {B}99.{CR} Go back a menu.\n")
                     while True:
                         web_choice = int(input(
-                            f"{color_blue}[-]{color_reset} Enter your choice: "))
+                            f"{B}[-]{CR} Enter your choice: "))
 
                         if web_choice == 99:
                             self.afterLoginVerificationMenu(self.username)
@@ -326,10 +324,10 @@ try:
                                 self.username, selected_website)
                             if status_of_deletion:
                                 print(
-                                    f"{color_green}[*]{color_reset} Password deleted successfully.")
+                                    f"{G}[*]{CR} Password deleted successfully.")
                         else:
                             print(
-                                f"{color_red}[!] Invalid input. Select a valid one.{color_reset}")
+                                f"{R}[!] Invalid input. Select a valid one.{CR}")
             except KeyboardInterrupt:
                 self.afterLoginVerificationMenu(username)
 
@@ -342,12 +340,12 @@ try:
                 storedWebSites = self.retrieveWebsiteFromDB(username)
                 if storedWebSites is not None:
                     for i, item in enumerate(storedWebSites, start=1):
-                        print(f"  {color_blue}{i}.{color_reset} {item[0]}  ")
+                        print(f"  {B}{i}.{CR} {item[0]}  ")
                     print()
-                    print(f" {color_blue}99.{color_reset} Go back a menu.\n")
+                    print(f" {B}99.{CR} Go back a menu.\n")
                     while True:
                         web_choice = int(input(
-                            f"{color_blue}[-]{color_reset} Select one from the stored websites: "))
+                            f"{B}[-]{CR} Select one from the stored websites: "))
 
                         if web_choice == 99:
                             self.afterLoginVerificationMenu(self.username)
@@ -359,15 +357,15 @@ try:
                             if dec_password is not None:
                                 while True:
                                     orig_pwd = getpass.getpass(
-                                        f"{color_blue}[-]{color_reset} Enter the old Password for this website: ")
+                                        f"{B}[-]{CR} Enter the old Password for this website: ")
                                     if orig_pwd != dec_password:
                                         print(
-                                            f"{color_red}[!] Passwords do not match. {color_reset}")
+                                            f"{R}[!] Passwords do not match. {CR}")
                                     else:
                                         new_pwd = getpass.getpass(
-                                            f"{color_blue}[-]{color_reset} Enter new Password: ")
+                                            f"{B}[-]{CR} Enter new Password: ")
                                         re_new_pwd = getpass.getpass(
-                                            f"{color_blue}[-]{color_reset} Re-enter new Password: ")
+                                            f"{B}[-]{CR} Re-enter new Password: ")
 
                                         if new_pwd == re_new_pwd:
                                             enc_pwd = self.encPwdForPwdStorage(
@@ -376,24 +374,24 @@ try:
                                                 username, enc_pwd, selected_website)
                                             if status:
                                                 print(
-                                                    f"{color_green}[*] Password updated successfully..")
+                                                    f"{G}[*] Password updated successfully..")
                                                 time.sleep(1)
                                                 self.afterLoginVerificationMenu(
                                                     username)
                                             else:
                                                 print(
-                                                    f"{color_red}[!] error while updating the password{color_reset}")
+                                                    f"{R}[!] error while updating the password{CR}")
                                         else:
                                             print(
-                                                f"{color_yellow}[!] Passwords do not match. Please try again.{color_reset}")
+                                                f"{Y}[!] Passwords do not match. Please try again.{CR}")
                                 else:
                                     pass
                             else:
                                 print(
-                                    f"{color_red}[!] Invalid input. Select a valid one.{color_reset}")
+                                    f"{R}[!] Invalid input. Select a valid one.{CR}")
                         else:
                             print(
-                                f"{color_yellow}  No passwords were found. Start by storing a new password from the \"Store Password Menu\"{color_reset}\n")
+                                f"{Y}  No passwords were found. Start by storing a new password from the \"Store Password Menu\"{CR}\n")
             except KeyboardInterrupt:
                 self.afterLoginVerificationMenu(username)
 
@@ -417,19 +415,22 @@ try:
                 introBanner()
                 print("Welcome to the Password Generating menu. Here you'll be able to generate a password according\nto your preferences and TITAN will do its work for you.\n")
                 complexity = input(
-                    f"  {color_blue}[-]{color_reset} Complexity level (Low[l]/Medium[m]/High[h]): ")
+                    f"  {B}[-]{CR} Complexity level (Low[l]/Medium[m]/High[h]): ")
 
                 generatedPwd = self.genPwd(complexity)
                 print(
-                    f"\n{color_green}  [-]{color_reset} Generated Password: {generatedPwd}\n")
+                    f"\n{G}  [-]{CR} Generated Password: {generatedPwd}")
+                pyperclip.copy(generatedPwd)
                 print(
-                    f"{color_red}[+]{color_reset} What do you want to do with this new password?:\n")
+                    f"{Y}  [Password is also copied to clipboard]{CR}\n")
                 print(
-                    f"  {color_blue}1. {color_reset}Store this password for a new website. ")
+                    f"{R}[+]{CR} What do you want to do with this new password?:\n")
                 print(
-                    f"  {color_blue}2. {color_reset}Update this password for an already existing website. ")
+                    f"  {B}1. {CR}Store this password for a new website. ")
                 print(
-                    f"  {color_blue}3. {color_reset}Do nothing. I was just exploring.")
+                    f"  {B}2. {CR}Update this password for an already existing website. ")
+                print(
+                    f"  {B}3. {CR}Do nothing. I was just exploring.")
 
                 while True:
                     choice_of_new_pwd = input("\nYour choice: ")
@@ -440,23 +441,23 @@ try:
                         # while True:
                         try:
                             new_web = input(
-                                f"{color_blue}  [-]{color_reset} Enter the name of the website: ")
+                                f"{B}  [-]{CR} Enter the name of the website: ")
                             enc_Pwd = self.encPwdForPwdStorage(generatedPwd)
                             if enc_Pwd:
                                 status = self.sqlConnectionToStorePwd(
                                     username, new_web, enc_Pwd)
                                 if status:
                                     print(
-                                        f"{color_green}  [*] Password inserted successfully {color_reset}")
+                                        f"{G}  [*] Password inserted successfully {CR}")
                                     time.sleep(1)
                                 else:
                                     print(
-                                        f"{color_red}  [!] Failed to insert the password{color_reset}")
+                                        f"{R}  [!] Failed to insert the password{CR}")
                             else:
                                 print(
-                                    f"{color_red}  [!] Something's wrong..{color_reset}")
+                                    f"{R}  [!] Something's wrong..{CR}")
                         except Exception as e:
-                            print(f"{color_red}[!] Program error: {e.message}")
+                            print(f"{R}[!] Program error: {e.message}")
 
                     elif choice_of_new_pwd == "2":
                         print()
@@ -465,9 +466,9 @@ try:
                         if records is not None:
                             for i, item in enumerate(records, start=1):
                                 print(
-                                    f"{color_blue}  {i}. {color_reset}{item[0]}")
+                                    f"{B}  {i}. {CR}{item[0]}")
                             print(
-                                f"{color_blue}\n 99.{color_reset} Back to the previous menu\n")
+                                f"{B}\n 99.{CR} Back to the previous menu\n")
 
                             web_choice = int(input("Enter your choice: "))
                             if web_choice == 99:
@@ -478,16 +479,16 @@ try:
                                     username, enc_Pwd, selected_website)
                                 if status:
                                     print(
-                                        f"{color_green}  [-] Password updated for the website: {selected_website}{color_reset}")
+                                        f"{G}  [-] Password updated for the website: {selected_website}{CR}")
                                     time.sleep(1)
                                     self.afterLoginVerificationMenu(username)
                                 else:
                                     print(
-                                        f"{color_red}  [!] Error occured while updating the password {color_reset}")
+                                        f"{R}  [!] Error occured while updating the password {CR}")
                                     time.sleep(1)
                         else:
                             print(
-                                f"{color_red} [!] Something's wrong..{color_reset}")
+                                f"{R} [!] Something's wrong..{CR}")
 
                     elif choice_of_new_pwd == "3":
                         self.afterLoginVerificationMenu(username)
@@ -499,32 +500,32 @@ try:
             try:
                 introBanner()
                 print(
-                    f"{color_green}[+] Login with your Master Credentials{color_reset}\n")
+                    f"{G}[+] Login with your Master Credentials{CR}\n")
 
                 login_username = input(
-                    f"{color_green_bold}  [-]{color_reset} Enter your username: ")
+                    f"{GB}  [-]{CR} Enter your username: ")
 
                 i = 1
                 while (i <= 4):
                     login_password = getpass.getpass(
-                        f"{color_green_bold}  [-]{color_reset} Enter your master password: ")
+                        f"{GB}  [-]{CR} Enter your master password: ")
 
                     decryptedPwd = self.checkMasterCredentials(
                         login_username, login_password)
 
                     if (i == 4):
                         print(
-                            f"{color_red}  [!] 3 incorrect password attempts. Please wait for 40 seconds before trying again..!{color_reset}")
+                            f"{R}  [!] 3 incorrect password attempts. Please wait for 40 seconds before trying again..!{CR}")
                         self.countdown(40)
                         self.loginMenu()
 
                     if decryptedPwd != login_password:
                         print(
-                            f"{color_red}  [!]{color_reset} Passwords do not match. Please try again. (chance: {i})")
+                            f"{R}  [!]{CR} Passwords do not match. Please try again. (chance: {i})")
                         i = i + 1
                     else:
                         print(
-                            f"{color_green_bold}  [*] Password accepted..!{color_reset}")
+                            f"{GB}  [*] Password accepted..!{CR}")
                         time.sleep(1)
                         self.afterLoginVerificationMenu(login_username)
 
@@ -535,34 +536,34 @@ try:
             try:
                 introBanner()
                 print(
-                    f"Welcome to the TITAN Password Manager: {color_green}{login_username}{color_reset}\n")
+                    f"Welcome to the TITAN Password Manager: {G}{login_username}{CR}\n")
                 print(
-                    f"{color_blue_bold}[*]{color_reset} Select an option:\n")
-                print(f"   {color_blue}1.{color_reset} Store a password.")
+                    f"{BB}[*]{CR} Select an option:\n")
+                print(f"   {B}1.{CR} Store a password.")
                 print(
-                    f"   {color_blue}2.{color_reset} Retrieve a password.")
+                    f"   {B}2.{CR} Retrieve a password.")
                 print(
-                    f"   {color_blue}3.{color_reset} Delete an inserted password.")
+                    f"   {B}3.{CR} Delete an inserted password.")
                 print(
-                    f"   {color_blue}4.{color_reset} Update an inserted password.")
+                    f"   {B}4.{CR} Update an inserted password.")
                 print(
-                    f"   {color_blue}5.{color_reset} Export passwords.")
+                    f"   {B}5.{CR} Export passwords.")
                 print(
-                    f"   {color_blue}6.{color_reset} Import password.")
+                    f"   {B}6.{CR} Import password.")
                 print(
-                    f"   {color_blue}7.{color_reset} Generate a strong password.")
-                print(f"   {color_blue}8.{color_reset} Secure notes")
+                    f"   {B}7.{CR} Generate a strong password.")
+                print(f"   {B}8.{CR} Secure notes")
                 print(
-                    f"   {color_blue}9.{color_reset} Check password leaks")
-                print(f"  {color_blue}10.{color_reset} Settings\n")
-                print(f"  {color_blue}99.{color_reset} Logout.\n")
+                    f"   {B}9.{CR} Check password leaks")
+                print(f"  {B}10.{CR} Settings\n")
+                print(f"  {B}99.{CR} Logout.\n")
                 while True:
                     choice = input(
-                        f"{color_blue}{under}titan{color_reset}:{color_blue}{under}home{color_reset} > ")
+                        f"{B}{UN}titan{CR}:{B}{UN}home{CR} > ")
 
                     if choice == "99":
                         print(
-                            f"{color_green_bold}[-]{color_reset} Loggin you out.")
+                            f"{GB}[-]{CR} Loggin you out.")
                         time.sleep(1)
                         self.MainMenu()
                     elif choice == "1":
@@ -575,29 +576,34 @@ try:
                         self.updatePwdMenu(login_username)
                     elif choice == "5":
                         print(
-                            f"  {color_yellow}\n  This feature is under development.\n {color_reset}")
+                            f"  {Y}\n  This feature is UN development.\n {CR}")
                         # self.export_pwd(login_username)
                     elif choice == "6":
                         print(
-                            f"  {color_yellow}\n  This feature is under development.\n {color_reset}")
+                            f"  {Y}\n  This feature is UN development.\n {CR}")
                         # self.import_pwd(login_username)
                     elif choice == "7":
                         self.genPwdMenu(login_username)
                     elif choice == "8":
                         sec_notes(login_username)
                     elif choice == "9":
-                        check_pwned(login_username)
+                        status = check_pwned(login_username)
+                        if not status:
+                            print(
+                                f"{R}[!] You are not connected to the internet. Exiting.\n")
+                        time.sleep(1)
+                        self.afterLoginVerificationMenu(login_username)
                     elif choice == "10":
                         self.settingMenu(login_username)
                     else:
                         print(
-                            f"{color_red}[!] Provide a valid choice{color_reset}")
+                            f"{R}[!] Provide a valid choice{CR}")
 
             except KeyboardInterrupt:
                 choice = input(
-                    f"{color_red}\n[!] Keyboard Interrupt detected. Do you want to logout of your account? [y/n]: {color_reset}")
+                    f"{R}\n[!] Keyboard Interrupt detected. Do you want to logout of your account? [y/n]: {CR}")
                 if choice.lower == 'y':
-                    print(f"{color_green}[*] Logging you out{color_reset}")
+                    print(f"{G}[*] Logging you out{CR}")
                     time.sleep(1)
                     self.MainMenu()
                 else:
@@ -608,21 +614,21 @@ try:
                 self.username = username
                 introBanner()
                 print(
-                    f"{color_blue}[*]{color_reset} Choose one from the following:\n")
+                    f"{B}[*]{CR} Choose one from the following:\n")
                 print(
-                    f"  {color_blue}1.{color_reset} Change your master password")
-                print(f"  {color_blue}2.{color_reset} Enable 2FA Authentication")
-                print(f"  {color_blue}3.{color_reset} Deactivate your account\n")
-                print(f" {color_blue}99.{color_reset} Go back to previous menu\n")
+                    f"  {B}1.{CR} Change your master password")
+                print(f"  {B}2.{CR} Enable 2FA Authentication")
+                print(f"  {B}3.{CR} Deactivate your account\n")
+                print(f" {B}99.{CR} Go back to previous menu\n")
 
                 while True:
                     choice = int(input(
-                        f"{color_blue}{under}titan{color_reset}:{color_blue}{under}home{color_reset}:{color_blue}{under}settings{color_reset} > "))
+                        f"{B}{UN}titan{CR}:{B}{UN}home{CR}:{B}{UN}settings{CR} > "))
                     if choice == 1:
                         self.chngMasterPwd(username)
                     elif choice == 2:
                         print(
-                            f"{color_yellow}\n  This feature is under development.\n {color_reset}")
+                            f"{Y}\n  This feature is UN development.\n {CR}")
                         # enable2FA()
                     elif choice == 3:
                         self.delAccountMenu(self.username)
@@ -630,7 +636,7 @@ try:
                         self.afterLoginVerificationMenu(self.username)
                     else:
                         print(
-                            f"{color_red}[!]{color_reset} Please enter a valid option.")
+                            f"{R}[!]{CR} Please enter a valid option.")
 
             except KeyboardInterrupt:
                 self.afterLoginVerificationMenu(self.username)
@@ -640,29 +646,29 @@ try:
                 introBanner()
                 print(f"Welcome to the Master Password Changing section.\n")
                 orig_Mpwd = getpass.getpass(
-                    f"{color_blue}[-]{color_reset} Please enter your current Master password: ")
+                    f"{B}[-]{CR} Please enter your current Master password: ")
                 decrypted_pwd = self.checkMasterCredentials(
                     username, orig_Mpwd)
                 if decrypted_pwd != orig_Mpwd:
                     print(
-                        f"{color_red}[!] Incorrect password entered. Please try again.{color_reset}")
+                        f"{R}[!] Incorrect password entered. Please try again.{CR}")
                 else:
                     while True:
                         new_Mpwd = getpass.getpass(
-                            f"{color_blue}[-]{color_reset} Enter your new Master Password: ")
+                            f"{B}[-]{CR} Enter your new Master Password: ")
                         confirm_new_Mpwd = getpass.getpass(
-                            f"{color_blue}[-]{color_reset} Re-enter your new Master Password: ")
+                            f"{B}[-]{CR} Re-enter your new Master Password: ")
 
                         if (new_Mpwd != confirm_new_Mpwd):
                             print(
-                                f"{color_red}[!] Passwords do not match. Please try again.{color_reset}")
+                                f"{R}[!] Passwords do not match. Please try again.{CR}")
                         else:
                             # retrieve master password
                             db_stored_password = self.retrieveMasterPwd(
                                 username)
                             if db_stored_password == confirm_new_Mpwd:
                                 print(
-                                    f"{color_yellow_bold}[!]{color_reset} The new Master password cannot be same as the old one.")
+                                    f"{YB}[!]{CR} The new Master password cannot be same as the old one.")
                             else:
                                 verified_pwd = validate_password(
                                     confirm_new_Mpwd)
@@ -672,16 +678,16 @@ try:
                                         username, encrypted_new_Mpwd)
                                     if status:
                                         print(
-                                            f"\n{color_green}[-] Master Password changed successfully.{color_reset}")
+                                            f"\n{G}[-] Master Password changed successfully.{CR}")
                                         print(
-                                            f"\n{color_green}[-]{color_reset} Kindly login again with your new credentials.")
+                                            f"\n{G}[-]{CR} Kindly login again with your new credentials.")
                                         print(
-                                            f"\n{color_green}[+]{color_reset} Redirecting to the Main Menu...")
+                                            f"\n{G}[+]{CR} Redirecting to the Main Menu...")
                                         time.sleep(1)
                                         self.MainMenu()
                                     else:
                                         print(
-                                            f"{color_red}[!] Error updating your master password.")
+                                            f"{R}[!] Error updating your master password.")
             except KeyboardInterrupt:
                 self.settingMenu(username)
 
@@ -690,7 +696,7 @@ try:
                 self.username = username
                 introBanner()
                 print(
-                    f"{color_red}[!] Deleting your account can result in the loss of passwords. Kindly backup or export\nyour passwords so that the passwords are saved with you.{color_reset}\n")
+                    f"{R}[!] Deleting your account can result in the loss of passwords. Kindly backup or export\nyour passwords so that the passwords are saved with you.{CR}\n")
                 try:
                     while True:
                         confirm_Mpwd = getpass.getpass(
@@ -701,18 +707,18 @@ try:
                             status = self.delAccount(self.username)
                             if status:
                                 print(
-                                    f"{color_green}  [-] Your account deleted successfully...{color_reset}\n")
+                                    f"{G}  [-] Your account deleted successfully...{CR}\n")
                                 print(
-                                    f"{color_blue}  [-] Redirecting you to the Main Menu.{color_reset}")
+                                    f"{B}  [-] Redirecting you to the Main Menu.{CR}")
                                 time.sleep(1)
                                 self.MainMenu()
                             else:
                                 print(
-                                    f"{color_red}[!] Error while deleting your account.{color_reset}")
+                                    f"{R}[!] Error while deleting your account.{CR}")
                                 sys.exit()
                         else:
                             print(
-                                f"{color_red}  [!] Passwords do not match! Enter your Master Password again to verify if its you.{color_reset}")
+                                f"{R}  [!] Passwords do not match! Enter your Master Password again to verify if its you.{CR}")
                 except Exception as e:
                     print(e)
             except KeyboardInterrupt:
@@ -727,14 +733,24 @@ try:
             parser.add_argument(
                 "-a", "--action",
                 help="action can contain either 'login' or 'register' parameters. ",
-                type=str)
+                type=str
+            )
+            # parser.add_argument(
+            #     "-u", "--username",
+            #     help="Enter username to login",
+            #     type=str
+            # )
+            # parser.add_argument(
+            #     "-p", "--password",
+            #     help="Enter password to login"
+            # )
 
             parseArgs = parser.parse_args()
 
-            if (parseArgs.action == "login" or parseArgs.action == "LOGIN"):
+            if parseArgs.action == "login" or parseArgs.action == "LOGIN":
                 self.loginMenu()
 
-            elif (parseArgs.action == "register" or parseArgs.action == "REGISTER"):
+            elif parseArgs.action == "register" or parseArgs.action == "REGISTER":
                 self.registrationMenu()
 
         def MainMenu(self):
@@ -747,20 +763,22 @@ try:
                 status = check_internet_connection()
                 if status:
                     print(
-                        f"{color_green}[*] Network connection deteted.{color_reset}\n")
+                        f"{G}[*] Network connection deteted.{CR}\n")
                 else:
                     print(
-                        f"{color_red}[!] Network connection not detected. Some modules may not work properly{color_reset}\n")
+                        f"{R}[!]{CR} Network connection not detected.\n")
+                tip = tips()
+                print(f"{Y}Tip: {tip}{CR}\n")
 
-                print(f"{color_blue_bold}[*] Select an option:{color_reset}\n")
-                print(f"   {color_blue}1.{color_reset} Register an account")
-                print(f"   {color_blue}2.{color_reset} Login Menu")
-                print(f"   {color_blue}3.{color_reset} About/Usage\n")
+                print(f"{BB}[*] Select an option:{CR}\n")
+                print(f"   {B}1.{CR} Register an account")
+                print(f"   {B}2.{CR} Login Menu")
+                print(f"   {B}3.{CR} About/Usage\n")
                 print(
-                    f"  {color_blue}99.{color_reset} Exit the Titan Password Manager\n")
+                    f"  {B}99.{CR} Exit the Titan Password Manager\n")
 
                 while True:
-                    option = input(f"{color_blue}{under}titan{color_reset} > ")
+                    option = input(f"{B}{UN}titan{CR} > ")
 
                     if option == '1':
                         self.registrationMenu()
@@ -769,24 +787,24 @@ try:
                     elif option == '3':
                         Manual()
                         input(
-                            f"  Press {color_red}<enter>{color_reset} to continue")
+                            f"  Press {R}<enter>{CR} to continue")
                         if input:
                             self.MainMenu()
                     elif option == '99' or option == 'bye' or option == 'exit':
                         print(
-                            f"\n Thank you for choosing and using {color_red}TITAN Password Manager{color_reset}.\n")
+                            f"\n Thank you for choosing and using {R}TITAN Password Manager{CR}.\n")
                         print(
-                            f" Goodbye and stay secure! And remember, strong passwords unlock a {color_green}\"world of safety\"{color_reset}\n")
+                            f" Goodbye and stay secure! And remember, strong passwords unlock a {G}\"world of safety\"{CR}\n")
                         sys.exit(0)
                     else:
                         print(
-                            f"{color_red}[!]{color_reset} Invalid option. Please select a valid one.")
+                            f"{R}[!]{CR} Invalid option. Please select a valid one.")
 
             except KeyboardInterrupt:
                 print(
-                    f"\n\n Thank you for choosing and using {color_red}TITAN{color_reset} Password Manager.\n")
+                    f"\n\n Thank you for choosing and using {R}TITAN{CR} Password Manager.\n")
                 print(
-                    f" Goodbye, stay secure! And remember, strong passwords unlocks a {color_green}\"world of safety\"{color_reset}\n")
+                    f" Goodbye, stay secure! And remember, strong passwords unlocks a {G}\"world of safety\"{CR}\n")
                 sys.exit(0)
 
     if __name__ == '__main__':
